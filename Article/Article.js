@@ -85,8 +85,104 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'The best Ice-Cream ever!',
+    date: 'August 13, 2019',
+    firstParagraph: 'Gotta catch em all Horsea gym Ninjask Absol Sinnoh Poliwag. Gotta catch em all Youngster wants to fight Soda Pop Floatzel Leech Life Seismitoad Ariados. Earthquake Pokemon Glitch City Tail Whip Skitty Ekans Dialga. Ut aliquip ex ea commodo consequat James Castform Lotad the power thats inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.',
+    
+    secondParagraph: 'Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor',
+    
+    thirdParagraph: 'Pidgey Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   }
 ];
+
+window.addEventListener('load', (e) => {
+
+	const articles = document.querySelector('.articles');
+	data.forEach((element) => {
+		articles.appendChild(
+			createArticle(
+				element.title,
+				element.date,
+				element.firstParagraph,
+				element.secondParagraph,
+				element.thirdParagraph
+			)
+		);
+	});
+
+	function createArticle(title, date, firstParagraph, secondParagraph, thirdParagraph) {
+		// new elements //
+		const articleDiv = document.createElement('div');
+		const title1 = document.createElement('h2');
+		const date1 = document.createElement('p');
+		const paragraphOne = document.createElement('p');
+		const paragraphTwo = document.createElement('p');
+		const paragraphThree = document.createElement('p');
+		const buttonSpan = document.createElement('span');
+		// Structure of Elements //
+		articleDiv.appendChild(title1);
+		articleDiv.appendChild(date1);
+		articleDiv.appendChild(paragraphOne);
+		articleDiv.appendChild(paragraphTwo);
+		articleDiv.appendChild(paragraphThree);
+		articleDiv.appendChild(buttonSpan);
+		// class names //
+		articleDiv.classList.add('article');
+		date1.classList.add('date');
+		buttonSpan.classList.add('expandButton');
+		// set content //
+		title1.textContent = title;
+		date1.textContent = date;
+		paragraphOne.textContent = firstParagraph;
+		paragraphTwo.textContent = secondParagraph;
+    paragraphThree.textContent = thirdParagraph;
+    buttonSpan.textContent = 'Click for more';
+		//event listeners //
+		buttonSpan.addEventListener('click', (e) => {
+			articleDiv.classList.toggle('article-open');
+		});
+    console.log(buttonSpan);
+		return articleDiv;
+	}
+});
+var camera, scene, renderer;
+var geometry, material, mesh;
+
+init();
+animate();
+
+function init() {
+
+	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
+	camera.position.z = 1;
+
+	scene = new THREE.Scene();
+
+	geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+	material = new THREE.MeshNormalMaterial();
+
+	mesh = new THREE.Mesh( geometry, material );
+	scene.add( mesh );
+
+	renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	document.body.appendChild( renderer.domElement );
+
+}
+
+function animate() {
+
+	requestAnimationFrame( animate );
+
+	mesh.rotation.x += 0.01;
+	mesh.rotation.y += 0.02;
+
+	renderer.render( scene, camera );
+
+}
+
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
